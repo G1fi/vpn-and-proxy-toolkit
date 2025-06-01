@@ -1,0 +1,5 @@
+# Static predictable IP
+explicit-ipv4 = 10.0.71.50
+
+# Tell client to use tunnel by default
+route = default

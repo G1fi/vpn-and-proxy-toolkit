@@ -1,0 +1,7 @@
+# Static predictable IP
+explicit-ipv4 = 10.0.71.100
+
+# Tell client to use this route in tunnel
+route = 10.0.1.0/24
+# Tell the server that the client is accessing the subnet
+# iroute = 10.0.1.0/24

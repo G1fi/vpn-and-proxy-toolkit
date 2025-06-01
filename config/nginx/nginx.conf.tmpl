@@ -1,0 +1,41 @@
+events {}
+
+stream {
+  map $ssl_preread_server_name $backend {
+    {{VPN_DOMAIN}} ocserv;
+    {{PROXY_DOMAIN}} 3x-ui;
+    default default;
+  }
+
+  upstream ocserv {
+    server 127.0.0.1:1443;
+  }
+
+  upstream 3x-ui {
+    server 172.18.0.50:443;
+  }
+
+  upstream default {
+    server {{DEFAULT_UPSTREAM}}:443;
+  }
+
+  server {
+    listen 443;
+    proxy_pass $backend;
+    ssl_preread on;
+    proxy_protocol on;
+  }
+}
+
+http {
+  server {
+    listen 80;
+
+    location / {
+      proxy_pass http://{{DEFAULT_UPSTREAM}};
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+}

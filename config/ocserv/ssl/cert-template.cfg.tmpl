@@ -1,0 +1,16 @@
+# cert-template.cfg
+
+organization = "My Company"
+cn = "vpn.example.com"
+serial = 1
+expiration_days = 3650
+
+# Установите в yes, если это серверный сертификат
+tls_www_server = yes
+
+# Разрешить использовать этот сертификат для сервера
+encryption_key = yes
+signing_key = yes
+
+# Не является CA
+ca = no

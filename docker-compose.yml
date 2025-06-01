@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx-sni-proxy
+    hostname: nginx-sni-proxy
+    restart: unless-stopped
+    network-mode: host
+    volumes:
+      - /opt/vpn-and-proxy-toolkit/config/nginx.conf:/etc/nginx/nginx.conf:ro
+    healthcheck:
+      test: ["CMD", "pidof", "nginx"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  3x-ui:
+    image: ghcr.io/mhsanaei/3x-ui:latest
+    container_name: 3x-ui
+    hostname: 3x-ui
+    restart: unless-stopped
+    depends_on:
+      nginx:
+        condition: service_healthy
+    volumes:
+      - /opt/vpn-and-proxy-toolkit/3x-ui/db/:/etc/x-ui/
+      - /opt/vpn-and-proxy-toolkit/3x-ui/cert/:/root/cert/
+    environment:
+      XRAY_VMESS_AEAD_FORCED: "false"
+    tty: true
+    networks:
+      docker-network:
+        ipv4_address: 172.18.0.50
+
+networks:
+  docker-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
+
+
+networks:
+  docker-network:
