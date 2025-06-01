@@ -7,8 +7,6 @@ services:
     hostname: nginx-sni-proxy
     restart: unless-stopped
     network_mode: host
-    ports:
-      - 2053:2053
     volumes:
       - /opt/vpn-and-proxy-toolkit/config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     healthcheck:
@@ -23,6 +21,8 @@ services:
     container_name: 3x-ui
     hostname: 3x-ui
     restart: unless-stopped
+    ports:
+      - 2053:2053
     depends_on:
       nginx:
         condition: service_healthy
