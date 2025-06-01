@@ -15,7 +15,7 @@ This project was originally developed to securely access my homelab services ext
 
 - Personal domain or DDNS (e.g., `freemyip.com`)
 - Ubuntu server with `sudo` (root) access
-- Available ports: `80`, `443`, `1443`
+- Available ports: `80`, `443`, `1443`, `2053`
 - Stable internet connection
 
 ## Tested On
