@@ -47,6 +47,7 @@ vpn-and-proxy-toolkit/
 ## TODO
 
 - [ ] Add `acme.sh` support for automatic SSL certificate generation
+- [ ] Create a Docker container with ocserv and add it to Docker Hub
 
 ---
 
